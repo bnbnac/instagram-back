@@ -2,9 +2,8 @@
   "name": "instagram",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --exec babel-node server"
   },
   "repository": {
     "type": "git",
@@ -16,5 +15,17 @@
   "bugs": {
     "url": "https://github.com/bnbnac/instagram-backend/issues"
   },
-  "homepage": "https://github.com/bnbnac/instagram-backend#readme"
+  "homepage": "https://github.com/bnbnac/instagram-backend#readme",
+  "dependencies": {
+    "@prisma/client": "^4.1.0",
+    "apollo-server": "^3.10.0",
+    "graphql": "^16.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.9",
+    "@babel/node": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "nodemon": "^2.0.19",
+    "prisma": "^4.1.0"
+  }
 }
