@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "nodemon --exec babel-node server",
-    "migrate": "npmx prisma migrate dev",
+    "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio"
   },
   "repository": {
@@ -24,6 +24,7 @@
     "@graphql-tools/schema": "^8.5.0",
     "@prisma/client": "^4.1.0",
     "apollo-server": "^3.10.0",
+    "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",
     "graphql": "^16.5.0",
     "graphql-tools": "^8.3.0"
