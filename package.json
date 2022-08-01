@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "nodemon --exec babel-node server",
+    "dev": "nodemon --exec babel-node server --delay 2",
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio"
   },
@@ -31,13 +31,14 @@
     "graphql": "^16.5.0",
     "graphql-tools": "^8.3.0",
     "graphql-upload": "^15.0.2",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
     "@babel/node": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
     "nodemon": "^2.0.19",
-    "prisma": "^4.1.0"
+    "prisma": "^4.1.1"
   }
 }
