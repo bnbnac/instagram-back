@@ -4,7 +4,7 @@ export default gql`
   type SeeFollowersResult {
     ok: Boolean!
     error: String
-    folllowers: [User]
+    followers: [User]
     totalPages: Int
   }
   type Query {
