@@ -12,9 +12,11 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: async ({ req }) => {
+    const IN_PAGE = 5;
     return {
       loggedInUser: await getUser(req.headers.token),
       protectedResolver,
+      IN_PAGE,
     };
   },
 });
