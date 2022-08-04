@@ -6,6 +6,7 @@ import { typeDefs, resolvers } from "./schema";
 import { getUser, protectedResolver } from "./users/users.utils";
 
 import graphqlUploadExpress from "graphql-upload/graphqlUploadExpress.js";
+import client from "./client";
 
 const PORT = process.env.PORT;
 const server = new ApolloServer({
@@ -15,8 +16,8 @@ const server = new ApolloServer({
     const IN_PAGE = 5;
     return {
       loggedInUser: await getUser(req.headers.token),
-      protectedResolver,
       IN_PAGE,
+      client,
     };
   },
 });
