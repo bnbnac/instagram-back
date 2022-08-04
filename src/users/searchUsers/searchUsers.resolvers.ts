@@ -1,8 +1,8 @@
-import client from "../../client";
+import { Resolvers } from "../../types";
 
-export default {
+const resolvers: Resolvers = {
   Query: {
-    searchUsers: (_, { keyword, lastId }, { IN_PAGE }) =>
+    searchUsers: (_, { keyword, lastId }, { IN_PAGE, client }) =>
       client.user.findMany({
         where: {
           username: {
@@ -17,3 +17,5 @@ export default {
   },
   // MAKE pagination!!!  // AND user done commit
 };
+
+export default resolvers;
