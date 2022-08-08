@@ -1,3 +1,4 @@
+import client from "../client";
 import { Resolvers } from "../types";
 
 // cf) how the parent looks like
@@ -12,16 +13,15 @@ import { Resolvers } from "../types";
 
 const resolvers: Resolvers = {
   Photo: {
-    user: ({ userId }, _, { client }) =>
-      client.user.findUnique({ where: { id: userId } }),
-    likes: ({ id }, _, { client }) =>
+    user: ({ userId }) => client.user.findUnique({ where: { id: userId } }),
+    likes: ({ id }) =>
       client.like.count({
         where: {
           photoId: id,
         },
       }),
-
-    hashtags: ({ id }, _, { client }) =>
+    comments: ({ id }) => client.comment.count({ where: { photoId: id } }),
+    hashtags: ({ id }) =>
       client.hashtag.findMany({
         where: {
           photos: {
@@ -31,15 +31,16 @@ const resolvers: Resolvers = {
           },
         },
       }),
+    isMine: ({ userId }, _, { loggedInUser }) => userId === loggedInUser?.id,
   },
   Hashtag: {
-    photos: ({ id }, { page }, { client, IN_PAGE }) => {
+    photos: ({ id }, { page }, { IN_PAGE }) => {
       return client.hashtag.findUnique({ where: { id } }).photos({
         take: IN_PAGE,
         skip: IN_PAGE * (page - 1),
       });
     },
-    totalPhotos: ({ id }, _, { client }) =>
+    totalPhotos: ({ id }) =>
       client.photo.count({
         where: {
           hashtags: {

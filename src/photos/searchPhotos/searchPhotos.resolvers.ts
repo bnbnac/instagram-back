@@ -11,6 +11,9 @@ const resolvers: Resolvers = {
         },
         take: IN_PAGE,
         skip: IN_PAGE * (page - 1),
+        orderBy: {
+          createdAt: "desc",
+        },
       }),
   },
 };

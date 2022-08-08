@@ -27,6 +27,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   likes Like[]
+  comments Comment[]
 }
 
 model Photo {
@@ -39,6 +40,7 @@ model Photo {
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
   likes Like[]
+  comments Comment[]
 }
 
 model Hashtag {
@@ -51,14 +53,25 @@ model Hashtag {
 
 model Like {
   id Int @id @default(autoincrement())
-  photo Photo @relation(fields: [photoId], references: [id])
-  user User @relation(fields: [userId], references: [id])
+  photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   photoId Int
   userId Int
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 
   // a user can like a photo only once
-  // there is no doubleLike or superLike
+  // there is no doubleLike or su perLike
   @@unique([photoId, userId])
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payload String
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  photoId Int
+  userId Int
 }
