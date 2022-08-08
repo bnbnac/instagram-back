@@ -1,6 +1,7 @@
 import client from "../client";
+import { Resolvers } from "../types";
 
-export default {
+const resolvers: Resolvers = {
   User: {
     totalFollowing: ({ id }) =>
       client.user.count({
@@ -32,12 +33,6 @@ export default {
       if (!loggedInUser) {
         return false;
       }
-      //   const ok = await client.user
-      //     .findUnique({ where: { id: loggedInUser.id } })
-      //     .following({ where: { id } });
-      //   return ok.length !== 0;
-      //
-      //   get whole user and dot following
       const ok = await client.user.count({
         where: {
           id: loggedInUser.id,
@@ -50,5 +45,12 @@ export default {
       });
       return Boolean(ok);
     },
+    photos: ({ id }, { page }, { IN_PAGE }) =>
+      client.user.findUnique({ where: { id } }).photos({
+        take: IN_PAGE,
+        skip: IN_PAGE * (page - 1),
+      }),
   },
 };
+
+export default resolvers;
