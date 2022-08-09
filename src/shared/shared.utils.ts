@@ -24,6 +24,7 @@ export const uploadToS3 = async (file, userId, folderName) => {
 
 export const deleteFromS3 = async (fileUrl) => {
   const decodedUrl = decodeURI(fileUrl);
+  // better way to split????
   const fileName = decodedUrl.split("jinstagram-uploads.s3.amazonaws.com/")[1];
   await new AWS.S3()
     .deleteObject({
