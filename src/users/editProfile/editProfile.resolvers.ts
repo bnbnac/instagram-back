@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { protectedResolver } from "../users.utils";
 import GraphQLUpload from "graphql-upload/GraphQLUpload.js";
 import { Resolver, Resolvers } from "../../types";
+import { deleteFromS3, uploadToS3 } from "../../shared/shared.utils";
 
 const resolverFn: Resolver = async (
   _,
@@ -11,16 +12,24 @@ const resolverFn: Resolver = async (
 ) => {
   let avatarUrl = null;
   if (avatar) {
-    // avatar is a promise contains a filename and a function named createReadStream
-    // createReadStream has a function named pipe
-    const { filename, createReadStream } = await avatar;
-    const newFilename = `${loggedInUser.id}-${Date.now()}-${filename}`;
-    const readStream = createReadStream();
-    const writeStream = createWriteStream(
-      process.cwd() + "/uploads/" + newFilename
-    );
-    readStream.pipe(writeStream);
-    avatarUrl = `http://localhost:4000/static/${newFilename}`;
+    const exAvatar = (
+      await client.user.findUnique({ where: { id: loggedInUser.id } })
+    ).avatar;
+    // delete ex-avatar before updating avatar
+    if (exAvatar) {
+      deleteFromS3(exAvatar);
+    }
+    avatarUrl = await uploadToS3(avatar, loggedInUser.id, "avatars");
+    // save FILE on SERVER(DON'T HAVE AWS)
+    //
+    // const { filename, createReadStream } = await avatar;
+    // const newFilename = `${loggedInUser.id}-${Date.now()}-${filename}`;
+    // const readStream = createReadStream();
+    // const writeStream = createWriteStream(
+    //   process.cwd() + "/uploads/" + newFilename
+    // );
+    // readStream.pipe(writeStream);
+    // fileUrl = `http://localhost:4000/static/${newFilename}`;
   }
 
   let uglyPassword = null;

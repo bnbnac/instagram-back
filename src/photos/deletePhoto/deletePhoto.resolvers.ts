@@ -1,3 +1,4 @@
+import { deleteFromS3 } from "../../shared/shared.utils";
 import { Resolvers } from "../../types";
 import { protectedResolver } from "../../users/users.utils";
 
@@ -11,6 +12,7 @@ const resolvers: Resolvers = {
           },
           select: {
             userId: true,
+            file: true,
           },
         });
         if (!photo) {
@@ -29,6 +31,7 @@ const resolvers: Resolvers = {
               id,
             },
           });
+          await deleteFromS3(photo.file);
           return {
             ok: true,
           };
