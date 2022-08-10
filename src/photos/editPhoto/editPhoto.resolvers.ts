@@ -16,7 +16,6 @@ const resolvers: Resolvers = {
             },
           },
         });
-        console.log(oldPhoto);
         if (!oldPhoto) {
           return {
             ok: false,
