@@ -75,7 +75,7 @@ const resolvers: Resolvers = {
           },
         });
 
-        pubsub.publish(NEW_MESSAGE, { roomUpdates: { ...newMessage } });
+        pubsub.publish(NEW_MESSAGE, { roomUpdates: newMessage });
 
         return {
           ok: true,

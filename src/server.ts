@@ -31,7 +31,17 @@ const startServer = async () => {
     server: httpServer,
     path: "/graphql",
   });
-  const serverCleanup = useServer({ schema }, wsServer);
+
+  const serverCleanup = useServer(
+    {
+      schema,
+      // send the return value to subscription's context
+      context: async (ctx) => {
+        return { loggedInUser: await getUser(ctx.connectionParams.token) };
+      },
+    },
+    wsServer
+  );
 
   const server = new ApolloServer({
     schema,
@@ -50,13 +60,16 @@ const startServer = async () => {
       },
       ApolloServerPluginLandingPageLocalDefault({ embed: true }),
     ],
-    context: async ({ req }) => {
-      const IN_PAGE = 5;
-      return {
-        loggedInUser: await getUser(req.headers.token),
-        IN_PAGE,
-        client,
-      };
+    context: async (ctx) => {
+      // http part
+      if (ctx.req) {
+        const IN_PAGE = 5;
+        return {
+          loggedInUser: await getUser(ctx.req.headers.token),
+          IN_PAGE,
+          client,
+        };
+      }
     },
   });
 
