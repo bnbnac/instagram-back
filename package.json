@@ -1,5 +1,5 @@
 {
-  "name": "instagram",
+  "name": "instagram-back",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bnbnac/instagram-backend.git"
+    "url": "git+https://github.com/bnbnac/instagram-back.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bnbnac/instagram-backend/issues"
+    "url": "https://github.com/bnbnac/instagram-back/issues"
   },
-  "homepage": "https://github.com/bnbnac/instagram-backend#readme",
+  "homepage": "https://github.com/bnbnac/instagram-back#readme",
   "dependencies": {
     "@graphql-tools/load-files": "^6.6.0",
     "@graphql-tools/merge": "^8.3.0",
