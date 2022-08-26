@@ -20,7 +20,13 @@ const resolvers: Resolvers = {
           photoId: id,
         },
       }),
-    comments: ({ id }) => client.comment.count({ where: { photoId: id } }),
+    commentsNumber: ({ id }) =>
+      client.comment.count({ where: { photoId: id } }),
+    comments: ({ id }) =>
+      client.comment.findMany({
+        where: { photoId: id },
+        include: { user: true },
+      }),
     hashtags: ({ id }) =>
       client.hashtag.findMany({
         where: {
@@ -31,7 +37,29 @@ const resolvers: Resolvers = {
           },
         },
       }),
-    isMine: ({ userId }, _, { loggedInUser }) => userId === loggedInUser?.id,
+    isMine: ({ userId }, _, { loggedInUser }) => {
+      return userId === loggedInUser?.id;
+    },
+    isLiked: async ({ id }, _, { loggedInUser, client }) => {
+      if (!loggedInUser) {
+        return false;
+      }
+      const ok = await client.like.findUnique({
+        where: {
+          photoId_userId: {
+            photoId: id,
+            userId: loggedInUser.id,
+          },
+        },
+        select: {
+          id: true,
+        },
+      });
+      if (ok) {
+        return true;
+      }
+      return false;
+    },
   },
   Hashtag: {
     photos: ({ id }, { page }, { IN_PAGE }) => {
