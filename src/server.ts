@@ -63,7 +63,7 @@ const startServer = async () => {
     context: async (ctx) => {
       // http part
       if (ctx.req) {
-        const IN_PAGE = 5;
+        const IN_PAGE = 3;
         return {
           loggedInUser: await getUser(ctx.req.headers.token),
           IN_PAGE,
