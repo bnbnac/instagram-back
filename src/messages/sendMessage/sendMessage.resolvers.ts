@@ -1,5 +1,5 @@
 import { NEW_MESSAGE } from "../../constants";
-import pubsub from "../../pubsub";
+import { pubsub } from "../../pubsub";
 import { Resolvers } from "../../types";
 import { protectedResolver } from "../../users/users.utils";
 
@@ -75,7 +75,7 @@ const resolvers: Resolvers = {
           },
         });
 
-        pubsub.publish(NEW_MESSAGE, { roomUpdates: newMessage });
+        pubsub.publish(NEW_MESSAGE, { roomUpdates: { ...newMessage } });
 
         return {
           ok: true,

@@ -31,10 +31,6 @@ const resolvers: Resolvers = {
   Message: {
     user: ({ id }, _, { client }) =>
       client.message.findUnique({ where: { id } }).user(),
-    // user: async ({ id }, _, { client }) => {
-    //   const result = await client.message.findUnique({ where: { id } }).user();
-    //   return result;
-    // },
   },
 };
 

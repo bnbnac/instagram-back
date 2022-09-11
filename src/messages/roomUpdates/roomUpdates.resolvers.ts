@@ -1,7 +1,7 @@
 import { withFilter } from "graphql-subscriptions";
 import client from "../../client";
 import { NEW_MESSAGE } from "../../constants";
-import pubsub from "../../pubsub";
+import { pubsub } from "../../pubsub";
 
 const resolvers = {
   Subscription: {
@@ -34,6 +34,7 @@ const resolvers = {
 
           async ({ roomUpdates }, { id }, { loggedInUser }) => {
             if (roomUpdates.roomId === id) {
+              console.log(roomUpdates);
               const room = await client.room.findFirst({
                 where: {
                   id,
@@ -55,21 +56,21 @@ const resolvers = {
           }
         )(root, args, context, info);
       },
-      //   var withFilter = function (asyncIteratorFn, filterFn) {
-      //     return function (rootValue, args, context, info) {
-      //         var _a;
-      //         var asyncIterator = asyncIteratorFn(rootValue, args, context, info);
-      //         var getNextPromise = function () {
-      //             return new Promise(function (resolve, reject) {
-      //                 var inner = function () {
-      //                     asyncIterator
-      //                         .next()
-      //                         .then(function (payload) {
-      //                         if (payload.done === true) {
-      //                             resolve(payload);
-      //                             return;
-      //                         }
-      //                         Promise.resolve(filterFn(payload.value, args, context, info))
+      //   //   var withFilter = function (asyncIteratorFn, filterFn) {
+      //   //     return function (rootValue, args, context, info) {
+      //   //         var _a;
+      //   //         var asyncIterator = asyncIteratorFn(rootValue, args, context, info);
+      //   //         var getNextPromise = function () {
+      //   //             return new Promise(function (resolve, reject) {
+      //   //                 var inner = function () {
+      //   //                     asyncIterator
+      //   //                         .next()
+      //   //                         .then(function (payload) {
+      //   //                         if (payload.done === true) {
+      //   //                             resolve(payload);
+      //   //                             return;
+      //   //                         }
+      //   //                         Promise.resolve(filterFn(payload.value, args, context, info))
     },
   },
 };
