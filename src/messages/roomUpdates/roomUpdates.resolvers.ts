@@ -34,7 +34,6 @@ const resolvers = {
 
           async ({ roomUpdates }, { id }, { loggedInUser }) => {
             if (roomUpdates.roomId === id) {
-              console.log(roomUpdates);
               const room = await client.room.findFirst({
                 where: {
                   id,

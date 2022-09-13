@@ -9,6 +9,9 @@ const resolvers: Resolvers = {
         where: {
           roomId: id,
         },
+        orderBy: {
+          createdAt: "asc",
+        },
       }),
     unreadTotal: ({ id }, _, { client, loggedInUser }) => {
       if (!loggedInUser) {
