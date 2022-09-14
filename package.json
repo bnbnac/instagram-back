@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "nodemon --exec ts-node src/server --ext ts,js --delay 2",
     "migrate": "npx prisma migrate dev",
-    "studio": "npx prisma studio"
+    "studio": "npx prisma studio",
+    "build": "babel src --out-dir build",
+    "start": "node built/server"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,7 @@
   },
   "homepage": "https://github.com/bnbnac/instagram-back#readme",
   "dependencies": {
+    "@babel/cli": "^7.18.10",
     "@graphql-tools/load-files": "^6.6.0",
     "@graphql-tools/merge": "^8.3.0",
     "@graphql-tools/schema": "^8.5.1",
