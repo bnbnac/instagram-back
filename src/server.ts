@@ -80,7 +80,7 @@ const startServer = async () => {
 
   httpServer.listen(process.env.PORT, () => {
     console.log(
-      `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
+      `🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`
     );
   });
 };
