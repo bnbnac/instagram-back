@@ -60,11 +60,6 @@ const startServer = async () => {
           };
         },
       },
-      // {
-      //   async requestDidStart(requestContext) {
-      //     console.log("Request started! Query:\n" + requestContext.request);
-      //   },
-      // },
       ApolloServerPluginLandingPageLocalDefault({ embed: true }),
     ],
     context: async (ctx) => {
