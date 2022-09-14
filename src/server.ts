@@ -17,7 +17,7 @@ import { getUser } from "./users/users.utils";
 import client from "./client";
 import { typeDefs, resolvers } from "./schema";
 
-const PORT = process.env.PORT;
+// const PORT = process.env.PORT;
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const startServer = async () => {
@@ -78,7 +78,7 @@ const startServer = async () => {
   await server.start();
   server.applyMiddleware({ app });
 
-  httpServer.listen({ port: PORT }, () => {
+  httpServer.listen(process.env.PORT, () => {
     console.log(
       `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
     );
