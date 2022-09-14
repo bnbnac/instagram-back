@@ -47,9 +47,9 @@ const startServer = async () => {
 
   const server = new ApolloServer({
     schema,
-    csrfPrevention: true, // what is this!!!!!!!
+    csrfPrevention: false, // what is this!!!!!!!
     cache: "bounded",
-    introspection: false,
+    introspection: process.env.NODE_ENV !== "production",
     plugins: [
       ApolloServerPluginDrainHttpServer({ httpServer }),
       {
