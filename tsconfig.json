@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./built",
-    "allowJs": true,
+    "module": "CommonJS",
+    "sourceMap": true,
+    "outDir": "built",
     "target": "es5",
-    "esModuleInterop": true
+    "strict": true,
+    "lib": ["esnext"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
   },
   "include": ["./src/**/*"]
 }

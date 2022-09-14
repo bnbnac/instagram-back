@@ -49,6 +49,7 @@ const startServer = async () => {
     schema,
     csrfPrevention: true, // what is this!!!!!!!
     cache: "bounded",
+    introspection: false,
     plugins: [
       ApolloServerPluginDrainHttpServer({ httpServer }),
       {
@@ -78,7 +79,7 @@ const startServer = async () => {
   await server.start();
   server.applyMiddleware({ app });
 
-  httpServer.listen(process.env.PORT, () => {
+  httpServer.listen(process.env.PORT || 443, () => {
     console.log(
       `🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`
     );
