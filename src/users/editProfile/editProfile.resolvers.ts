@@ -15,6 +15,7 @@ const resolverFn: Resolver = async (
     const exAvatar = (
       await client.user.findUnique({ where: { id: loggedInUser.id } })
     ).avatar;
+    console.log(exAvatar);
     // delete ex-avatar before updating avatar
     if (exAvatar) {
       deleteFromS3(exAvatar);
